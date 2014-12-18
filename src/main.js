@@ -24,6 +24,6 @@ function draw () {
 
   currentAnimation.tick(t);
 
-  client.mapPixels(pixel_map, currentAnimation.get_pixel_map());
+  client.mapPixels(pixel_map, currentAnimation.get_pixel_buffer());
 }
 setInterval(draw, 30);

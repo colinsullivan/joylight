@@ -11,7 +11,8 @@
 (function () {
   "use strict";
   
-  var LightAnimation = require("./LightAnimation.js");
+  var LightAnimation = require("./LightAnimation.js"),
+    PixelBuffer = require("./PixelBuffer.js");
  
   /**
    *  @class        ExplosionAnimation
@@ -24,16 +25,14 @@
     var i;
 
     Object.defineProperties(this, {
-      numPixels: {
-        enumerable: true,
+      animationPixels: {
+        enumerable: false,
         writable: false,
-        value: 8
+        value: new PixelBuffer({
+          numPixels: 8
+        })
       }
     });
-
-    for (i = 0; i < this.numPixels; i++) {
-      this.pixels.push([0, 0, 0]);
-    }
 
   };
 
@@ -47,49 +46,55 @@
         var i,
           adjustedTime = t * 0.003,
           x;
-        for (i = 0; i < this.pixels.length; i++) {
+
+        for (i = 0; i < this.animationPixels.length; i++) {
           x = 0.1 * i + adjustedTime;
-          this.pixels[i][0] = 96 * Math.sin(x);
-          this.pixels[i][1] = 96 * Math.sin(x);
-          this.pixels[i][2] = 96 * Math.sin(x);
+          this.animationPixels.set_rgb(
+            i,
+            96 * Math.sin(x),
+            96 * Math.sin(x),
+            96 * Math.sin(x)
+          );
         }
 
       }
     },
-    get_pixel_map: {
+    get_pixel_buffer: {
       enumerable: true,
       writable: false,
       value: function () {
         //LightAnimation.prototype.get_pixel_map.apply(this, arguments);
         
         var i,
-          numPixels = 80,
+          pointIndex,
           numPoints = 5,
-          pixelMap = [];
+          pointStartIndex,
+          pointEndIndex,
+          internalIndex;
 
-        // initialize all pixels
-        for (i = 0; i < numPixels; i++) {
-          pixelMap.push([0, 0, 0]);
+        // for each point
+        for (pointIndex = 0; pointIndex < numPoints; pointIndex++) {
+          pointStartIndex = pointIndex * 16;
+          for (i = 0; i < 8; i++) {
+            this.pixels.set_rgb(
+              pointStartIndex + i,
+              this.animationPixels.get(i)
+            );
+          }
+          pointEndIndex = pointStartIndex + 16;
+          for (i = pointEndIndex - 8; i < pointEndIndex; i++) {
+            internalIndex = this.animationPixels.length - 1 - (
+              i%this.animationPixels.length
+            );
+
+            this.pixels.set_rgb(
+              i,
+              this.animationPixels.get(internalIndex)
+            );
+          }
         }
 
-
-        // first point
-        for (i = 0; i < 8; i++) {
-          pixelMap[i][0] = this.pixels[i][0];
-          pixelMap[i][1] = this.pixels[i][1];
-          pixelMap[i][2] = this.pixels[i][2];
-        }
-        var internalIndex;
-        for (i = numPixels - 8; i < numPixels; i++) {
-          internalIndex = this.numPixels - 1 - (i%this.numPixels);
-          console.log("internalIndex");
-          console.log(internalIndex);
-          pixelMap[i][0] = this.pixels[internalIndex][0];
-          pixelMap[i][1] = this.pixels[internalIndex][1];
-          pixelMap[i][2] = this.pixels[internalIndex][2];
-        }
-
-        return pixelMap;
+        return this.pixels.buffer;
     
         
       }

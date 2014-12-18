@@ -9,6 +9,7 @@
   "author": "Colin Sullivan <colin@colin-sullivan.net>",
   "license": "MIT",
   "dependencies": {
-    "microtime": "^1.0.1"
+    "microtime": "^1.0.1",
+    "underscore": "^1.7.0"
   }
 }

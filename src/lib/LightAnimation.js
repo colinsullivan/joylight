@@ -10,6 +10,8 @@
 
 (function () {
   "use strict";
+
+  var PixelBuffer = require("./PixelBuffer.js");
   
  
   /**
@@ -24,7 +26,9 @@
       pixels: {
         enumerable: true,
         writable: false,
-        value: []
+        value: new PixelBuffer({
+          numPixels: 80
+        })
       }
     });
 
@@ -36,6 +40,13 @@
       writable: false,
       value: function (t) {
         
+      }
+    },
+    get_pixel_buffer: {
+      enumerable: true,
+      writable: false,
+      value: function () {
+        return this.pixels.buffer;
       }
     }
   });
