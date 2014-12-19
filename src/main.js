@@ -9,6 +9,7 @@ var OPC = new require('./lib/opc'),
 var currentAnimation,
   pixel_map;
 
+// for testing
 //currentAnimation = new EachLightAnimation();
 currentAnimation = new ExplosionAnimation();
 
