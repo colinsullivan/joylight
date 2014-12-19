@@ -146,9 +146,9 @@
       writable: false,
       value: function (index) {
         if (index < 0) {
-          index += this.pixels.length;
-        } else if (index > this.pixels.length) {
-          index = index%this.pixels.length;
+          index += this._buffer.length;
+        } else if (index >= this._buffer.length) {
+          index = index%this._buffer.length;
         }
 
         return index;

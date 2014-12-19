@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var OPC = new require('./lib/opc'),
+  _ = require("underscore"),
   client = new OPC('localhost', 7890),
   EachLightAnimation = require("./lib/EachLightAnimation.js"),
   ExplosionAnimation = require("./lib/ExplosionAnimation.js"),
@@ -8,9 +9,11 @@ var OPC = new require('./lib/opc'),
 
 // The star has 80 pixels.
 var currentAnimation,
+  availableAnimations = [],
   pixel_map,
   actual_pixels = [],
-  i;
+  i,
+  DEBUG=false;
 
 for (i = 0; i < 80; i++) {
   actual_pixels.push([0, 0, 0]);
@@ -18,8 +21,14 @@ for (i = 0; i < 80; i++) {
 
 // for testing
 //currentAnimation = new EachLightAnimation();
-currentAnimation = new ExplosionAnimation();
-//currentAnimation = new SnakeAnimation();
+//currentAnimation = new ExplosionAnimation();
+currentAnimation = new SnakeAnimation();
+
+availableAnimations = [
+  new ExplosionAnimation(),
+  new SnakeAnimation()
+];
+
 
 pixel_map = function (pixel) {
   var led = pixel;
@@ -48,9 +57,29 @@ function draw () {
     actual_pixels[i][2] = pixels[79 - i + 40][2];
   }
 
-  client.mapPixels(
-    pixel_map,
-    actual_pixels
-  );
+  if (DEBUG) {
+    client.mapPixels(
+      pixel_map,
+      pixels
+    );
+  } else {
+    client.mapPixels(
+      pixel_map,
+      actual_pixels
+    );
+    
+  }
+
 }
+
+function change_animation () {
+
+  nextAnimation = _.sample(availableAnimations);
+
+  currentAnimation = nextAnimation;
+
+  setTimeout(change_animation, 5000);
+  
+}
+change_animation();
 setInterval(draw, 30);

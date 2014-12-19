@@ -11,7 +11,8 @@
 (function () {
   "use strict";
 
-  var StarAnimation = require("./StarAnimation.js");
+  var StarAnimation = require("./StarAnimation.js"),
+    PixelBuffer = require("./PixelBuffer.js");
   
  
   /**
@@ -22,23 +23,28 @@
   this.SnakeAnimation = function (params) {
     StarAnimation.apply(this, arguments);
 
+    var i;
+
     Object.defineProperties(this, {
       headPosition: {
         enumerable: false,
         writable: true,
         value: 0
       },
-      snakeLength: {
+      snakeBrightness: {
         enumerable: false,
         writable: false,
-        value: 24
-      },
-      snakeBrightnessCoef: {
-        enumerable: false,
-        writable: true,
-        value: 0
+        value: new Array(24)
       }
     });
+
+    this.snakeBrightnessCoef = (Math.PI / this.snakeLength);
+
+    for (i = 0; i < this.snakeBrightness.length; i++) {
+      this.snakeBrightness[i] = (Math.sin(
+        (1.0 - (i / this.snakeBrightness.length)) * Math.PI + (Math.PI/2.0)
+      ) * 0.5 + 0.5);
+    }
 
   };
 
@@ -48,24 +54,57 @@
       writable: false,
       value: function (t) {
         StarAnimation.prototype.tick.apply(this, arguments);
+
+        var i;
     
-        this.headPosition += 0.0000000000001 * t % this.pixels.length;
-        this.snakeBrightnessCoef = (Math.PI / this.snakeLength) + this.headPosition;
+        this.headPosition += 0.000000000001 * t;
+
+        /*for (i = 0; i < this.snakePixels.length; i++) {
+          this.snakePixels.set_hsv(
+            i,
+            1.0,
+            1.0,
+            Math.sin(this.snakeBrightnessCoef * (i / this.snakePixels.length))
+          );
+        }*/
+
       }
     },
     get_pixel_buffer: {
       enumerable: true,
       writable: false,
       value: function () {
-        var i,
-          snakeStartIndex = (
+        var i;
+
+        this.pixels.all_off();
+
+        for (i = 0; i < this.snakeBrightness.length; i++) {
+          this.pixels.set_hsv(
+            this.pixels.wrap_index(Math.round(this.headPosition) + i),
+            1.0,
+            1.0,
+            this.snakeBrightness[i]
+          );
+        }
+        /*var i,
+          snakeTopPosition = (
             this.headPosition + (this.snakeLength / 2.0)
           ),
-          snakeEndIndex = (
+          snakeBottomPosition = (
             this.headPosition - (this.snakeLength / 2.0)
           );
 
         this.pixels.all_off();
+
+        for (i = 0; i < this.snakeLength; i++) {
+          this.pixels.set_hsv(
+            this.pixels.wrap_index(snakeBottomPosition + i),
+            1.0,
+            1.0,
+            Math.sin(this.snakeBrightnessCoef * (i / this.snakeLength))
+          );
+        }*/
+
 
 
         /*var i,
