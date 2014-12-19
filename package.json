@@ -9,6 +9,6 @@
   "author": "Colin Sullivan <colin@colin-sullivan.net>",
   "license": "MIT",
   "dependencies": {
-    "underscore": "^1.7.0"
+    "underscore": "~1.7.0"
   }
 }
