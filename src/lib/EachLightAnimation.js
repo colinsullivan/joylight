@@ -11,7 +11,7 @@
 (function () {
   "use strict";
 
-  var LightAnimation = require("./LightAnimation.js");
+  var StarAnimation = require("./StarAnimation.js");
 
   /**
    *  @class        EachLightAnimation
@@ -19,7 +19,7 @@
    *  @classdesc    Simply iterate over each light in order.
    **/ 
   this.EachLightAnimation = function (params) {
-    LightAnimation.apply(this, arguments);
+    StarAnimation.apply(this, arguments);
 
     var i;
 
@@ -38,19 +38,19 @@
 
   };
 
-  this.EachLightAnimation.prototype = Object.create(LightAnimation.prototype, {
+  this.EachLightAnimation.prototype = Object.create(StarAnimation.prototype, {
 
     tick: {
       enumerable: true,
       writable: false,
       value: function (t) {
-        LightAnimation.prototype.tick.apply(this, arguments);
+        StarAnimation.prototype.tick.apply(this, arguments);
 
         var i,
           timeSincePixelOn;
         
         timeSincePixelOn = t - this.currentPixelOnTime;
-        if (this.currentPixelOnTime === null || timeSincePixelOn > 500) {
+        if (this.currentPixelOnTime === null || timeSincePixelOn > 300) {
           for (i = 0; i < this.pixels.length; i++) {
 
             if (i === this.currentPixelIndex) {

@@ -123,7 +123,7 @@
       }
     },
 
-    /*all_off: {
+    all_off: {
       enumerable: true,
       writable: false,
       value: function () {
@@ -136,7 +136,24 @@
         }
         
       }
-    }*/
+    },
+
+    /**
+     *  Given an index, wrap within the bounds of the pixel buffer.
+     **/
+    wrap_index: {
+      enumerable: true,
+      writable: false,
+      value: function (index) {
+        if (index < 0) {
+          index += this.pixels.length;
+        } else if (index > this.pixels.length) {
+          index = index%this.pixels.length;
+        }
+
+        return index;
+      }
+    }
   });
 
   module.exports = this.PixelBuffer;

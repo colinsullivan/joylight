@@ -11,7 +11,7 @@
 (function () {
   "use strict";
   
-  var LightAnimation = require("./LightAnimation.js"),
+  var StarAnimation = require("./StarAnimation.js"),
     PixelBuffer = require("./PixelBuffer.js");
  
   /**
@@ -20,22 +20,9 @@
    *  @classdesc    Lights start from center and move outwards towards point.
    **/ 
   this.ExplosionAnimation = function (params) {
-    LightAnimation.apply(this, arguments);
+    StarAnimation.apply(this, arguments);
 
     var i;
-
-    Object.defineProperties(this, {
-      numPoints: {
-        enumerable: true,
-        writable: false,
-        value: 5
-      },
-      pxPerSide: {
-        enumerable: true,
-        writable: false,
-        value: 8
-      }
-    });
 
     Object.defineProperties(this, {
       /**
@@ -60,12 +47,12 @@
 
   };
 
-  this.ExplosionAnimation.prototype = Object.create(LightAnimation.prototype, {
+  this.ExplosionAnimation.prototype = Object.create(StarAnimation.prototype, {
     tick: {
       enumerable: true,
       writable: false,
       value: function (t) {
-        LightAnimation.prototype.tick.apply(this, arguments);
+        StarAnimation.prototype.tick.apply(this, arguments);
     
         var i,
           x;

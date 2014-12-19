@@ -1,5 +1,5 @@
 /**
- *  @file       LightAnimation.js
+ *  @file       StarAnimation.js
  *
  *
  *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
@@ -15,14 +15,30 @@
   
  
   /**
-   *  @class        LightAnimation
+   *  @class        StarAnimation
    *
    *  @classdesc    Base functionality for each lighting animation.
    **/ 
-  this.LightAnimation = function (params) {
+  this.StarAnimation = function (params) {
     params = params || {};
 
     Object.defineProperties(this, {
+      /**
+       *  Number of points on the star.
+       **/
+      numPoints: {
+        enumerable: true,
+        writable: false,
+        value: 5
+      },
+      /**
+       *  Number of pixels along each side of the star.
+       **/
+      pxPerSide: {
+        enumerable: true,
+        writable: false,
+        value: 8
+      },
       pixels: {
         enumerable: true,
         writable: false,
@@ -34,7 +50,7 @@
 
   };
 
-  this.LightAnimation.prototype = Object.create(null, {
+  this.StarAnimation.prototype = Object.create(null, {
     tick: {
       enumerable: true,
       writable: false,
@@ -51,7 +67,7 @@
     }
   });
 
-  module.exports = this.LightAnimation;
+  module.exports = this.StarAnimation;
   
 
 }).call(this);
