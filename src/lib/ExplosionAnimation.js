@@ -55,6 +55,11 @@
         StarAnimation.prototype.tick.apply(this, arguments);
     
         var i,
+          p,
+          pointTopLeftIndex,
+          pointTopRightIndex,
+          pointEndIndex,
+          internalIndex,
           x;
 
         // move the brightness animation along, creating the "outward" motion
@@ -69,18 +74,6 @@
           x = (i / this.numPoints) + t * 0.001;
           this.hueAnimation[i] = 0.5 * Math.sin(x) + 0.5;
         }
-      }
-    },
-    get_pixel_buffer: {
-      enumerable: true,
-      writable: false,
-      value: function () {
-        var i,
-          p,
-          pointTopLeftIndex,
-          pointTopRightIndex,
-          pointEndIndex,
-          internalIndex;
 
         // for each point
         for (p = 0; p < this.numPoints; p++) {
@@ -115,10 +108,6 @@
           }
 
         }
-
-        return this.pixels.buffer;
-    
-        
       }
     }
   });

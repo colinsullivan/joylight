@@ -12,8 +12,7 @@ var currentAnimation,
   availableAnimations = [],
   pixel_map,
   actual_pixels = [],
-  i,
-  DEBUG=false;
+  i;
 
 for (i = 0; i < 80; i++) {
   actual_pixels.push([0, 0, 0]);
@@ -57,7 +56,7 @@ function draw () {
     actual_pixels[i][2] = pixels[79 - i + 40][2];
   }
 
-  if (DEBUG) {
+  if (process.env.SIMULATOR) {
     client.mapPixels(
       pixel_map,
       pixels
