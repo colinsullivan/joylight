@@ -75,19 +75,21 @@
       writable: false,
       value: function () {
         var i,
+          absoluteIndex,
           hue;
 
         this.pixels.all_off();
 
         for (i = 0; i < this.snakeBrightness.length; i++) {
-          if (i % 2) {
+          absoluteIndex = this.pixels.wrap_index(Math.round(this.headPosition) + i);
+          if (absoluteIndex % 2) {
             hue = (140.0/360.0);
           } else {
             hue = 1.0;
           }
 
           this.pixels.set_hsv(
-            this.pixels.wrap_index(Math.round(this.headPosition) + i),
+            absoluteIndex,
             hue,
             1.0,
             this.snakeBrightness[i]
