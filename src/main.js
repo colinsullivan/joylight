@@ -7,7 +7,8 @@ var OPC = new require('./lib/opc'),
   ExplosionAnimation = require("./lib/ExplosionAnimation.js"),
   SnakeAnimation = require("./lib/SnakeAnimation.js"),
   SegmentFlowAnimation = require("./lib/SegmentFlowAnimation.js"),
-  RotatingPointAnimation = require("./lib/RotatingPointAnimation.js");
+  RotatingPointAnimation = require("./lib/RotatingPointAnimation.js"),
+  TwinkleAnimation = require("./lib/TwinkleAnimation.js");
 
 // The star has 80 pixels.
 var currentAnimation,
@@ -24,7 +25,8 @@ availableAnimations = [
   new ExplosionAnimation(),
   new SnakeAnimation(),
   //new SegmentFlowAnimation(),
-  new RotatingPointAnimation()
+  new RotatingPointAnimation(),
+  new TwinkleAnimation()
 ];
 
 
@@ -76,7 +78,7 @@ function change_animation () {
 
   currentAnimation = nextAnimation;
 
-  setTimeout(change_animation, 5000);
+  setTimeout(change_animation, 8000);
   
 }
 if (_.isUndefined(currentAnimation)) {
