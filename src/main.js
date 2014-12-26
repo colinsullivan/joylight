@@ -20,11 +20,6 @@ for (i = 0; i < 80; i++) {
   actual_pixels.push([0, 0, 0]);
 }
 
-// for testing
-//currentAnimation = new EachLightAnimation();
-//currentAnimation = new ExplosionAnimation();
-currentAnimation = new SnakeAnimation();
-
 availableAnimations = [
   new ExplosionAnimation(),
   new SnakeAnimation(),
@@ -80,11 +75,11 @@ function change_animation () {
   nextAnimation = _.sample(availableAnimations);
 
   currentAnimation = nextAnimation;
-  // debugging a single animation
-  //currentAnimation = _.last(availableAnimations);
 
   setTimeout(change_animation, 5000);
   
 }
-change_animation();
+if (_.isUndefined(currentAnimation)) {
+  change_animation();
+}
 setInterval(draw, 30);

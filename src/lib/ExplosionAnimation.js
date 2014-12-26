@@ -65,7 +65,7 @@
         // move the brightness animation along, creating the "outward" motion
         // effect
         for (i = 0; i < this.pxPerSide; i++) {
-          x = 0.1 * i + t * 0.003;
+          x = 0.3 * i + t * 0.003;
           this.brightnessAnimation[i] = Math.sin(x);
         }
 
