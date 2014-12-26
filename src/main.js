@@ -79,9 +79,9 @@ function change_animation () {
 
   nextAnimation = _.sample(availableAnimations);
 
-  //currentAnimation = nextAnimation;
+  currentAnimation = nextAnimation;
   // debugging a single animation
-  currentAnimation = _.last(availableAnimations);
+  //currentAnimation = _.last(availableAnimations);
 
   setTimeout(change_animation, 5000);
   
