@@ -7,7 +7,7 @@ var OPC = new require('./lib/opc'),
   ExplosionAnimation = require("./lib/ExplosionAnimation.js"),
   SnakeAnimation = require("./lib/SnakeAnimation.js"),
   SegmentFlowAnimation = require("./lib/SegmentFlowAnimation.js"),
-  SegmentStickAnimation = require("./lib/SegmentStickAnimation.js");
+  RotatingPointAnimation = require("./lib/RotatingPointAnimation.js");
 
 // The star has 80 pixels.
 var currentAnimation,
@@ -29,7 +29,7 @@ availableAnimations = [
   new ExplosionAnimation(),
   new SnakeAnimation(),
   //new SegmentFlowAnimation(),
-  new SegmentStickAnimation()
+  new RotatingPointAnimation()
 ];
 
 

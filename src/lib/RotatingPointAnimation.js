@@ -1,5 +1,5 @@
 /**
- *  @file       SegmentStickAnimation.js
+ *  @file       RotatingPointAnimation.js
  *
  *
  *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
@@ -15,25 +15,25 @@
   
  
   /**
-   *  @class        SegmentStickAnimation
+   *  @class        RotatingPointAnimation
    *
    *  @classdesc    Consecutively lighting up sides of star
    **/ 
-  this.SegmentStickAnimation = function (params) {
+  this.RotatingPointAnimation = function (params) {
     StarAnimation.apply(this, arguments);
 
     Object.defineProperties(this, {
-      currentSide: {
+      currentPoint: {
         enumerable: false,
         writable: true,
         value: 0
       },
-      timePerSide: {
+      timePerPoint: {
         enumerable: false,
         writable: true,
         value: 1000
       },
-      lastSideTime: {
+      lastPointTime: {
         enumerable: false,
         writable: true,
         value: 0
@@ -47,7 +47,7 @@
 
   };
 
-  this.SegmentStickAnimation.prototype = Object.create(StarAnimation.prototype, {
+  this.RotatingPointAnimation.prototype = Object.create(StarAnimation.prototype, {
     tick: {
       enumerable: true,
       writable: false,
@@ -56,14 +56,16 @@
 
         var i,
           px,
-          timeSinceLastSide = t - this.lastSideTime;
+          timeSinceLastPoint = t - this.lastPointTime;
 
         this.pixels.all_off();
     
         // light current side
-        for (i = 0; i < this.pxPerSide; i++) {
+        for (i = 0; i < this.pxPerPoint; i++) {
 
-          px = this.currentSide * this.pxPerSide + i;
+          px = this.pixels.wrap_index(
+            this.firstPointIndex + (this.currentPoint * this.pxPerPoint) + i
+          );
           this.pixels.set_hsv(
             px,
             this.currentHue,
@@ -72,18 +74,18 @@
           );
         }
 
-        if (timeSinceLastSide >= this.timePerSide) {
-          this.currentSide += 1;
+        if (timeSinceLastPoint >= this.timePerPoint) {
+          this.currentPoint += 1;
 
-          if (this.currentSide >= this.numSides) {
-            this.currentSide = 0;
+          if (this.currentPoint >= this.numPoints) {
+            this.currentPoint = 0;
           }
 
-          this.lastSideTime = t;
-          this.timePerSide *= 0.9;
+          this.lastPointTime = t;
+          this.timePerPoint *= 0.9;
 
-          if (this.timePerSide < 0.0001) {
-            this.timePerSide = 1000;
+          if (this.timePerPoint < 0.0001) {
+            this.timePerPoint = 1000;
           }
 
           this.currentHue += 0.02;
@@ -96,6 +98,6 @@
   });
   
 
-  module.exports = this.SegmentStickAnimation;
+  module.exports = this.RotatingPointAnimation;
 
 }).call(this);
