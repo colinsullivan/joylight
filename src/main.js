@@ -5,7 +5,9 @@ var OPC = new require('./lib/opc'),
   client = new OPC('localhost', 7890),
   EachLightAnimation = require("./lib/EachLightAnimation.js"),
   ExplosionAnimation = require("./lib/ExplosionAnimation.js"),
-  SnakeAnimation = require("./lib/SnakeAnimation.js");
+  SnakeAnimation = require("./lib/SnakeAnimation.js"),
+  SegmentFlowAnimation = require("./lib/SegmentFlowAnimation.js"),
+  SegmentStickAnimation = require("./lib/SegmentStickAnimation.js");
 
 // The star has 80 pixels.
 var currentAnimation,
@@ -25,7 +27,9 @@ currentAnimation = new SnakeAnimation();
 
 availableAnimations = [
   new ExplosionAnimation(),
-  new SnakeAnimation()
+  new SnakeAnimation(),
+  //new SegmentFlowAnimation(),
+  new SegmentStickAnimation()
 ];
 
 
@@ -75,7 +79,9 @@ function change_animation () {
 
   nextAnimation = _.sample(availableAnimations);
 
-  currentAnimation = nextAnimation;
+  //currentAnimation = nextAnimation;
+  // debugging a single animation
+  currentAnimation = _.last(availableAnimations);
 
   setTimeout(change_animation, 5000);
   

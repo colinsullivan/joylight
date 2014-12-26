@@ -24,14 +24,6 @@
 
     Object.defineProperties(this, {
       /**
-       *  Number of points on the star.
-       **/
-      numPoints: {
-        enumerable: true,
-        writable: false,
-        value: 5
-      },
-      /**
        *  Number of pixels along each side of the star.
        **/
       pxPerSide: {
@@ -39,12 +31,41 @@
         writable: false,
         value: 8
       },
+      /**
+       *  Number of side segments in star
+       **/
+      numSides: {
+        enumerable: true,
+        writable: false,
+        value: 10
+      },
       pixels: {
         enumerable: true,
         writable: false,
         value: new PixelBuffer({
           numPixels: 80
         })
+      }
+    });
+
+    Object.defineProperties(this, {
+      /**
+       *  Number of points on the star.
+       **/
+      numPoints: {
+        enumerable: true,
+        writable: false,
+        value: 5
+      },
+      pxPerPoint: {
+        enumerable: true,
+        writable: false,
+        value: this.pxPerSide * 2
+      },
+      firstPointIndex: {
+        enumerable: true,
+        writable: false,
+        value: this.pixels.length - this.pxPerSide
       }
     });
 
