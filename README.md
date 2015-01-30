@@ -1,6 +1,8 @@
 # Joylight
 
-This is the code repository for the "Joylight" project, an LED light installation created by the Sullivan family.  For more information about the project itself, see [my Joylight post](TODO).
+This is the code repository for the "Joylight" project, an LED light installation created by the Sullivan family.  For more information about the project itself, see [my Joylight post](http://colin-sullivan.net/main/2015/joylight/).
+
+![Joylight Animation](http://colin-sullivan.net/main/2015/joylight/joylight_google_animation.gif)
 
 ## Getting Started
 
